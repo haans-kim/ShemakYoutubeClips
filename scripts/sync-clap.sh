@@ -57,18 +57,19 @@ while [[ $# -gt 0 ]]; do
 done
 
 case "$CHAPTER" in
-  01) SONY="Clip0011.MXF"; IP="recordings/Clip1.mov" ;;
-  02) SONY="Clip0012.MXF"; IP="recordings/Clip2.mov" ;;
-  03) SONY="Clip0013.MXF"; IP="recordings/Clip3.mov" ;;
-  04) SONY="Clip0014.MXF"; IP="recordings/Clip4.mov" ;;
-  05) SONY="Clip0015.MXF"; IP="recordings/Clip5.mov" ;;
-  06) SONY="Clip0016.MXF"; IP="recordings/Clip6.mov" ;;
-  07) SONY="Clip0017.MXF"; IP="recordings/Clip7.mov" ;;
+  01) SONY="source/mxf/Clip0011.MXF"; IP="source/mov/Clip1.mov"; CHAPTER_DIR="chapters/01-workforce-planning" ;;
+  02) SONY="source/mxf/Clip0012.MXF"; IP="source/mov/Clip2.mov"; CHAPTER_DIR="chapters/02-attendance-monitoring" ;;
+  03) SONY="source/mxf/Clip0013.MXF"; IP="source/mov/Clip3.mov"; CHAPTER_DIR="chapters/03-skills-monitoring" ;;
+  04) SONY="source/mxf/Clip0014.MXF"; IP="source/mov/Clip4.mov"; CHAPTER_DIR="chapters/04-org-leadership" ;;
+  05) SONY="source/mxf/Clip0015.MXF"; IP="source/mov/Clip5.mov"; CHAPTER_DIR="chapters/05-team-lead-agent" ;;
+  06) SONY="source/mxf/Clip0016.MXF"; IP="source/mov/Clip6.mov"; CHAPTER_DIR="chapters/06-executive-agent" ;;
+  07) SONY="source/mxf/Clip0017.MXF"; IP="source/mov/Clip7.mov"; CHAPTER_DIR="chapters/07-hr-comp-agent" ;;
   *) echo "error: chapter must be 01..07, got '$CHAPTER'" >&2; exit 2 ;;
 esac
 
 [[ -f "$SONY" ]] || { echo "error: $SONY not found" >&2; exit 1; }
 [[ -f "$IP"   ]] || { echo "error: $IP not found"   >&2; exit 1; }
+[[ -d "$CHAPTER_DIR" ]] || { echo "error: $CHAPTER_DIR not found" >&2; exit 1; }
 
 # ---------- helpers ----------
 duration_of() {
@@ -177,7 +178,8 @@ if [[ "$DRY_RUN" -eq 1 ]]; then
 fi
 
 # ---------- transcode ----------
-mkdir -p media/pip media/audio media/dashboard
+DERIVED_DIR="${CHAPTER_DIR}/derived"
+mkdir -p "$DERIVED_DIR"
 
 # Build PIP video filter
 if [[ -n "$CROP_W" && -n "$CROP_H" && -n "$CROP_X" && -n "$CROP_Y" ]]; then
@@ -187,35 +189,37 @@ else
   PIP_VF="crop=810:1080:555:0,scale=${PIP_W}:${PIP_H}:flags=lanczos"
 fi
 
-PIP_OUT="media/pip/${CHAPTER}-pip.mp4"
-AUDIO_OUT="media/audio/${CHAPTER}-audio.m4a"
-DASH_OUT="media/dashboard/${CHAPTER}-dashboard.mp4"
+PIP_OUT="${DERIVED_DIR}/pip.mp4"
+AUDIO_OUT="${DERIVED_DIR}/audio.m4a"
+DASH_OUT="${DERIVED_DIR}/dashboard.mp4"
 
 echo
-echo ">>> [1/3] sony -> pip portrait video : $PIP_OUT"
+echo ">>> [1/3] sony -> pip portrait video + audio : $PIP_OUT"
 ffmpeg -hide_banner -y \
   -ss "$COMMON_T0" -to "$COMMON_END" -i "$SONY" \
-  -an -vf "$PIP_VF" \
+  -map 0:v:0 -map 0:a:0 \
+  -vf "$PIP_VF" \
   -c:v libx264 -preset slow -crf 20 -pix_fmt yuv420p -movflags +faststart \
   -r 30 \
+  -c:a aac -b:a 192k \
   "$PIP_OUT"
 
 echo
-echo ">>> [2/3] sony -> audio (CH1)        : $AUDIO_OUT"
+echo ">>> [2/3] sony -> audio only (CH1)           : $AUDIO_OUT"
 ffmpeg -hide_banner -y \
   -ss "$COMMON_T0" -to "$COMMON_END" -i "$SONY" \
   -map 0:a:0 -c:a aac -b:a 192k \
   "$AUDIO_OUT"
 
 echo
-echo ">>> [3/3] iphone -> dashboard 1080p  : $DASH_OUT"
+echo ">>> [3/3] iphone -> dashboard 1080p (silent) : $DASH_OUT"
+# Dashboard is the visual reference for slide pointing — audio comes from Sony PIP only.
 ffmpeg -hide_banner -y \
   -ss "$IP_T0" -to "$IP_END" -i "$IP" \
-  -map 0:v:0 -map 0:a:0 \
+  -map 0:v:0 -an \
   -vf "scale=1920:1080:flags=lanczos" \
   -c:v libx264 -preset slow -crf 21 -pix_fmt yuv420p -movflags +faststart \
   -r 30 \
-  -c:a aac -b:a 192k \
   "$DASH_OUT"
 
 echo

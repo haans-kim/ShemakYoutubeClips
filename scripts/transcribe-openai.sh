@@ -41,11 +41,11 @@ CHAPTER_DIR="chapters/${CHAPTER}-*"
 CHAPTER_DIR="$(ls -d $CHAPTER_DIR 2>/dev/null | head -1)"
 [[ -d "$CHAPTER_DIR" ]] || { echo "error: chapter dir for $CHAPTER not found" >&2; exit 1; }
 
-AUDIO="media/audio/${CHAPTER}-audio.m4a"
+AUDIO="${CHAPTER_DIR}/derived/audio.m4a"
 [[ -f "$AUDIO" ]] || { echo "error: $AUDIO not found" >&2; exit 1; }
 
-RAW_OUT="${CHAPTER_DIR}/transcript-openai.raw.json"
-WORDS_OUT="${CHAPTER_DIR}/transcript.json"
+RAW_OUT="${CHAPTER_DIR}/derived/transcript-openai.raw.json"
+WORDS_OUT="${CHAPTER_DIR}/derived/transcript.json"
 
 echo ">>> POST /v1/audio/transcriptions  (whisper-1, language=$LANG, audio=$AUDIO)"
 

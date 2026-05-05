@@ -1,4 +1,7 @@
-# Source camera footage and metadata — managed outside git (huge files)
+# Source camera footage (huge, managed outside git)
+source/
+
+# Sony NonRealTime metadata, in case any escaped to root
 *.MXF
 *.mxf
 *.MOV
@@ -8,22 +11,18 @@
 *.m4a
 *.m4v
 *.mkv
-*.MXF.bk
-
-# Sony NonRealTime metadata (paired with MXF)
 *.XML
 *.xml
 
-# Derived from sync-clap.sh / hyperframes — regenerable
-media/
+# Derived ffmpeg / hyperframes output (regenerable)
+chapters/*/derived/
 chapters/*/renders/
 chapters/*/.thumbnails/
 chapters/*/.waveform-cache/
 chapters/*/.hyperframes/
-
-# Whisper transcripts (regen on demand)
-chapters/*/transcript.json
-chapters/*/transcript-openai.raw.json
+chapters/*/*/.thumbnails/
+chapters/*/*/.waveform-cache/
+chapters/*/*/.hyperframes/
 
 # Temp scratch
 tmp/
