@@ -30,10 +30,23 @@ MIN_GROUP_WORDS = 2
 # Word-level corrections applied to Whisper output before grouping.
 # Handles brand/term mishears even when API prompt fails to bias the model.
 CORRECTIONS_WORD = {
+    # 쇠막 family
     "쇠막": "쉐막",
     "쇠막을": "쉐막을",
     "쇠막은": "쉐막은",
     "쇠막이": "쉐막이",
+    # 셀막 family (chapter 3 mishear)
+    "셀막": "쉐막",
+    "셀막을": "쉐막을",
+    "셀막은": "쉐막은",
+    "셀막이": "쉐막이",
+    "셀막의": "쉐막의",
+    # 셰막 family (chapter 4 mishear)
+    "셰막": "쉐막",
+    "셰막을": "쉐막을",
+    "셰막은": "쉐막은",
+    "셰막이": "쉐막이",
+    "셰막의": "쉐막의",
 }
 # Multi-word phrase corrections (applied to assembled group text).
 CORRECTIONS_PHRASE = [
@@ -41,6 +54,7 @@ CORRECTIONS_PHRASE = [
     ("쇠 막을", "쉐막을"),
     ("쇠 막은", "쉐막은"),
     ("쇠 막이", "쉐막이"),
+    ("셀 막", "쉐막"),
 ]
 
 

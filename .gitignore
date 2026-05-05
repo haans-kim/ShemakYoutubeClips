@@ -30,6 +30,7 @@ tmp/
 
 # Tooling
 node_modules/
+.venv/
 .DS_Store
 
 # Secrets (API keys, etc.)
