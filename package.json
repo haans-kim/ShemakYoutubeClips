@@ -1,0 +1,9 @@
+{
+  "name": "shemak-youtube-clips",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Shemak HR/AI Agent lecture series — 7 chapter HyperFrames compositions",
+  "devDependencies": {
+    "hyperframes": "latest"
+  }
+}

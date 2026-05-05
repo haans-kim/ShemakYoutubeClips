@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <title>Shemak Ch01 — 인력 계획</title>
+  <style>
+    html, body { margin: 0; padding: 0; background: #FFFFFF; }
+    #comp-1 { background: #FFFFFF; }
+    #comp-1 .slide {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      background: #FFFFFF;
+    }
+    #comp-1 #pip-frame {
+      position: absolute;
+      left: 1640px;
+      top: 740px;
+      width: 240px;
+      height: 300px;
+      border-radius: 10px;
+      overflow: hidden;
+      z-index: 50;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.30);
+    }
+    #comp-1 #pip-frame video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    #comp-1 #captions {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 80px;
+      pointer-events: none;
+      z-index: 60;
+    }
+    #comp-1 .caption-row {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      text-align: center;
+      opacity: 0;
+    }
+    #comp-1 .caption-group {
+      display: inline-block;
+      background: rgba(40, 44, 52, 0.85);
+      color: #FFFFFF;
+      padding: 14px 28px;
+      border-radius: 10px;
+      font-family: "Pretendard", "Apple SD Gothic Neo", sans-serif;
+      font-weight: 600;
+      font-size: 38px;
+      letter-spacing: -0.01em;
+      line-height: 1.35;
+      max-width: 1500px;
+    }
+  </style>
+</head>
+<body>
+
+<div id="comp-1" data-composition-id="ch01"
+     data-start="0" data-duration="241.3"
+     data-width="1920" data-height="1080">
+
+  <!-- Slide 1: 적정인력 산정 Framework (0 ~ 120.65s) -->
+  <img id="slide-1" class="clip slide"
+       data-start="0" data-duration="120.65" data-track-index="0"
+       src="slides/01.png" style="z-index: 4" />
+
+  <!-- Slide 2: 객실팀 적정인원 산정결과 (120.65 ~ 241.3s) -->
+  <img id="slide-2" class="clip slide"
+       data-start="120.65" data-duration="120.65" data-track-index="0"
+       src="slides/02.png" style="z-index: 4" />
+
+  <!-- PIP wrapper with audio (full duration). Animate the wrapper, not the video. -->
+  <div id="pip-frame" style="z-index: 50">
+    <video id="pip-video"
+           data-start="0" data-duration="241.3" data-track-index="1"
+           data-has-audio="true"
+           src="media/pip/01-pip-av.mp4"
+           playsinline
+           data-volume="1"></video>
+  </div>
+
+  <!-- Caption container (groups injected at composition init) -->
+  <div id="captions"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <script>
+    window.__CAPTION_GROUPS = [{"text": "오늘 시간에는 정원 산정,", "start": 0, "end": 2.36}, {"text": "��히 적정 인��� 관������ 이야기를", "start": 2.53, "end": 5.5}, {"text": "기��에 했던 재���식 방식이 어떻게", "start": 5.5, "end": 10.75}, {"text": "�����갔는지 다음에 AI,", "start": 10.75, "end": 14.38}, {"text": "HR을 도입한 ���막을 가지고 도입하면", "start": 14.74, "end": 17.44}, {"text": "어떤 모양을 지���게 되는지를 나��어서", "start": 17.44, "end": 20}, {"text": "설명드���고자 합니다. 지금 보시는 화���이", "start": 20, "end": 22.58}, {"text": "전형적으로 저희가 레거시 방식으로 했던", "start": 22.62, "end": 26.06}, {"text": "인��� 산정 방식입니다.", "start": 26.06, "end": 28}, {"text": "첫 번��로는 모든 구성원���한테 혹은", "start": 28, "end": 31.05}, {"text": "모든 조직한테 양식을 나��������서 인���", "start": 31.1, "end": 34.51}, {"text": "동인이 무엇인가 그리고 최근 3년간", "start": 34.51, "end": 37.84}, {"text": "혹은 1년간 이 인��� 동인이", "start": 37.84, "end": 39.98}, {"text": "어��한 ��을 보���는가와 몇 시간을", "start": 39.99, "end": 42.52}, {"text": "투입했는가를 다 작성하게 합니다.", "start": 42.74, "end": 45}, {"text": "두 번��로는 이게 실제 업������과", "start": 45, "end": 47.31}, {"text": "어떻게 되는지를 분석하는 업������ 진단이", "start": 47.35, "end": 50.41}, {"text": "이���어지게 되고요. 세 번��로는 그", "start": 50.41, "end": 53.08}, {"text": "당시에 ����� 비용 그리고 향후에", "start": 53.08, "end": 55.43}, {"text": "우리가 지��� 가능한 인�����,", "start": 55.43, "end": 57.55}, {"text": "영업이익 대��� 인�����율 등등을 정한", "start": 57.55, "end": 60.25}, {"text": "다음에 최종적으로는 적정한 인��� 안이", "start": 60.25, "end": 63.17}, {"text": "어떻다��� 산출해���가는 구��를 지니게 됩니다.", "start": 63.36, "end": 67}, {"text": "그 결과 지금 두 번째", "start": 67, "end": 68.84}, {"text": "화���에 보시는 것처럼 각 조직��로", "start": 68.84, "end": 72.03}, {"text": "혹은 파트���로 기능��로 현재 인원과", "start": 72.03, "end": 75.31}, {"text": "향후에 필요한 인원,", "start": 75.44, "end": 77.44}, {"text": "업������의 증감 요소���을 종합적으로 고���해서", "start": 77.44, "end": 82}, {"text": "인���이 향후에 몇 명이 필요하겠구������는", "start": 82, "end": 84}, {"text": "�������얼을 만들어서 보고하게 되는 구조입니다.", "start": 84, "end": 85.96}, {"text": "전형적으로 특정 시점에 한 번의", "start": 86, "end": 88.62}, {"text": "조사를 통해서 다음 필요한 시기에", "start": 88.62, "end": 91.47}, {"text": "인���이 얼마나 소요되는가를 예��해���가는 방식이라고", "start": 91.47, "end": 96.12}, {"text": "본다면 지금 보시는 화���은 각", "start": 96.12, "end": 99.18}, {"text": "조직��로 직급��로 매월 혹은 특정", "start": 99.18, "end": 103.32}, {"text": "연���에 다음 분기에 몇 명이", "start": 103.32, "end": 105.26}, {"text": "필요한가를 예��해���가는 방식입니다.", "start": 105.47, "end": 108}, {"text": "먼저 지금 보시는 화���은 전사의", "start": 108, "end": 111.38}, {"text": "인���들이 과거의 전사인���들이 변수���로 인���", "start": 111.38, "end": 116.28}, {"text": "동인입니다. 인��� 동인���로 전사인���의 어��한", "start": 116.31, "end": 120.84}, {"text": "회귀관��를 보여주는가를 설명하게 되고요.", "start": 120.93, "end": 125}, {"text": "이게 각 부서���로도 다시 한", "start": 125, "end": 126.43}, {"text": "번 브���다운���게 됩니다.", "start": 126.47, "end": 127.88}, {"text": "그래서 특정한 부서의 특정���에 인���", "start": 128.95, "end": 134.14}, {"text": "동인을 현재 업��� 매������이������지 현재", "start": 134.16, "end": 140.12}, {"text": "쓰고 있는 구성원���의 인터��� 결과���", "start": 140.69, "end": 145.03}, {"text": "토���로 인��� 동인��� 피처 ��을", "start": 145.05, "end": 147.75}, {"text": "찾아��니다. 그리고 그걸 과거 데이터", "start": 147.75, "end": 151.11}, {"text": "3년치를 모아서 회귀관��를 찾아��니다.", "start": 151.11, "end": 155}, {"text": "또 하나는 이게 부서 ��에", "start": 155, "end": 157.31}, {"text": "있는 �����만이 아니고요.", "start": 157.53, "end": 160}, {"text": "이 부서와 전후에 있는 부서���의", "start": 160, "end": 163.51}, {"text": "지표 간의 연관 관��도 동시에", "start": 163.51, "end": 166.6}, {"text": "AI가 일종의 알고리즘을 발��해서 예��하게", "start": 166.6, "end": 170.11}, {"text": "됩니다. 이��� 대���분 결��치가 무���", "start": 170.11, "end": 173.14}, {"text": "문제가 되게 됩니다.", "start": 173.14, "end": 175}, {"text": "�� 모든 프로세스��� 지�����로 완���히", "start": 175, "end": 177.8}, {"text": "데이터가 다 있어야 되는데 그게", "start": 177.8, "end": 180.26}, {"text": "다 모자���게 되는 상황이 많이", "start": 180.26, "end": 181.77}, {"text": "발생하게 되는 거죠.", "start": 181.81, "end": 183}, {"text": "그래서 ���막은 모자��� 부분,", "start": 183, "end": 185.84}, {"text": "�� 결��치를 정확히 예��해서 좀", "start": 185.84, "end": 189.23}, {"text": "더 설명 가능성을 높여주는데 초점을", "start": 189.23, "end": 192.35}, {"text": "맞추고 있다고 보시면 됩니다.", "start": 192.4, "end": 194}, {"text": "그 결과 지금 보시는 화���������", "start": 194, "end": 197.96}, {"text": "이 특정한 팀은 지표가 움직일", "start": 198.27, "end": 201.92}, {"text": "경우에 인원이 어떻게 가운데 세", "start": 201.92, "end": 205.64}, {"text": "번째에 있는 지표가 증가하게 되면", "start": 205.64, "end": 208}, {"text": "인��� 예��이 어떻게 바�� 것인가를", "start": 208, "end": 210.27}, {"text": "다음 달 혹은 다음 분기", "start": 210.27, "end": 211.73}, {"text": "내���에 어떻게 될 것인가를 예��하게", "start": 211.73, "end": 214.17}, {"text": "됩니다. 이거를 전체적으로 종합을 하면", "start": 214.19, "end": 217.26}, {"text": "지금 보시는 화��������� 내��� 더에는", "start": 217.26, "end": 219.66}, {"text": "전사가 몇 명이 필요하겠구나 혹은", "start": 219.66, "end": 222.24}, {"text": "다음 분기에는 다음 반기에는 혹은", "start": 222.24, "end": 224.36}, {"text": "특정한 요인���이 인��� 동인���이 변경되게", "start": 224.36, "end": 227.47}, {"text": "되면 몇 명이 필요할��를 예��하게", "start": 227.47, "end": 230.03}, {"text": "됩니다. 이게 ���막이 제공하는 기존의", "start": 230.03, "end": 233.18}, {"text": "재���식 방식과 좀 더 차���화���", "start": 233.18, "end": 235.34}, {"text": "방법���이라고 설명을 드��� 수가 있겠습니다.", "start": 235.34, "end": 239}, {"text": "감사합니다.", "start": 239, "end": 240.93}];
+  </script>
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+
+    // PIP entry — settles by ~1.4s
+    tl.from("#pip-frame", { scale: 0.7, opacity: 0, duration: 0.6, ease: "power2.out" }, 0.8);
+
+    // Slide 2 crossfade in at the midpoint
+    tl.from("#slide-2", { opacity: 0, duration: 0.4, ease: "none" }, 120.65);
+
+    // Captions: inject DOM + opacity-only toggle on the same timeline.
+    const groups = window.__CAPTION_GROUPS || [];
+    const capRoot = document.getElementById("captions");
+    groups.forEach((g, i) => {
+      const row = document.createElement("div");
+      row.id = "cg-" + i;
+      row.className = "caption-row";
+      const inner = document.createElement("span");
+      inner.className = "caption-group";
+      inner.textContent = g.text;
+      row.appendChild(inner);
+      capRoot.appendChild(row);
+    });
+    groups.forEach((g, i) => {
+      const sel = "#cg-" + i;
+      tl.set(sel, { opacity: 1 }, g.start);
+      tl.set(sel, { opacity: 0 }, g.end);
+    });
+
+    window.__timelines["ch01"] = tl;
+  </script>
+</div>
+
+</body>
+</html>
