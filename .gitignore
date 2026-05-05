@@ -23,6 +23,7 @@ chapters/*/.hyperframes/
 
 # Whisper transcripts (regen on demand)
 chapters/*/transcript.json
+chapters/*/transcript-openai.raw.json
 
 # Temp scratch
 tmp/
@@ -31,6 +32,11 @@ tmp/
 # Tooling
 node_modules/
 .DS_Store
+
+# Secrets (API keys, etc.)
+.env
+.env.local
+.env.*.local
 
 # IDE
 .vscode/
