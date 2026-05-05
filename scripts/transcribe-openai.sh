@@ -49,6 +49,10 @@ WORDS_OUT="${CHAPTER_DIR}/derived/transcript.json"
 
 echo ">>> POST /v1/audio/transcriptions  (whisper-1, language=$LANG, audio=$AUDIO)"
 
+# `prompt` biases Whisper toward domain vocabulary that it otherwise mishears
+# (e.g. "Shemak"/쉐막 → "쇠막", brand and Korean HR terms).
+PROMPT="쉐막(Shemak)은 HR/AI Agent 솔루션 기업입니다. 인력 계획, 적정 인원, 근무 적정성, 역량/스킬 모니터링, 조직 및 리더십 진단, 팀장 AI Agent, 임원 AI Agent, HR AI Agent, 보상, 인력 동인, 회귀관계, 결측치, 영업이익, 재래식 방식."
+
 curl -sS https://api.openai.com/v1/audio/transcriptions \
   -H "Authorization: Bearer $OPENAI_API_KEY" \
   -H "Content-Type: multipart/form-data" \
@@ -58,6 +62,7 @@ curl -sS https://api.openai.com/v1/audio/transcriptions \
   -F "response_format=verbose_json" \
   -F "timestamp_granularities[]=word" \
   -F "timestamp_granularities[]=segment" \
+  -F "prompt=${PROMPT}" \
   -o "$RAW_OUT"
 
 if [[ ! -s "$RAW_OUT" ]]; then
