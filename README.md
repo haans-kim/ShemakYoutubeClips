@@ -93,9 +93,24 @@ ShemakYoutubeClips/
 
 **SRT 파일이 편집 대상**입니다. JSON은 자동으로 derived됩니다.
 
+작업용 자막 7개는 모두 **`captions/` 폴더에 모여있습니다** (외부 전달용으로도 그대로 zip 가능):
+
+```
+captions/
+├── 01_captions.srt    # 인력 계획
+├── 02_captions.srt    # 근무 적정성 모니터링
+├── 03_captions.srt    # 역량/스킬 모니터링
+├── 04_captions.srt    # 조직 및 리더십 진단
+├── 05_captions.srt    # 팀장 AI Agent
+├── 06_captions.srt    # 임원 AI Agent
+└── 07_captions.srt    # HR AI Agent — 보상
+```
+
+`captions/0N_captions.srt`가 master 파일이고, `chapters/<NN>-*/work/captions.srt`는 그 master를 가리키는 symlink입니다 — 어느 쪽에서 편집하셔도 동일.
+
 | 용도 | 편집 파일 | derived JSON |
 |---|---|---|
-| 작업용(work) 영상 자막 | `chapters/<NN>-*/work/captions.srt` | `captions.json` |
+| 작업용(work) 영상 자막 | `captions/0N_captions.srt` | `chapters/<NN>-*/work/captions.json` |
 | 최종(final) 영상 자막 | `chapters/<NN>-*/final/caption-groups.srt` | `caption-groups.json` |
 
 SRT 형식 (텍스트 에디터에서 깔끔):
