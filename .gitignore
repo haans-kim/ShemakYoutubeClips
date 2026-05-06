@@ -27,6 +27,7 @@ chapters/*/*/.hyperframes/
 # Temp scratch
 tmp/
 .trash/
+*.zip
 
 # Tooling
 node_modules/
