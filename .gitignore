@@ -33,6 +33,7 @@ tmp/
 node_modules/
 .venv/
 .DS_Store
+__pycache__/
 
 # Secrets (API keys, etc.)
 .env
