@@ -17,6 +17,7 @@ source/
 # Derived ffmpeg / hyperframes output (regenerable)
 chapters/*/derived/
 chapters/*/renders/
+Shemak HR AI Agent 영상/
 chapters/*/.thumbnails/
 chapters/*/.waveform-cache/
 chapters/*/.hyperframes/
