@@ -130,7 +130,7 @@ The framework's full ruleset lives in `~/.claude/skills/hyperframes/SKILL.md`. T
 - Source: OpenAI Whisper API (cloud, `whisper-1`) via [scripts/transcribe-openai.sh](scripts/transcribe-openai.sh). The script reads `OPENAI_API_KEY` from `.env.local` (gitignored). API prompt biases the model toward "쉐막"/Shemak and Korean HR vocabulary.
 - Grouping: [scripts/build-captions.py](scripts/build-captions.py) breaks word-level timestamps on Korean sentence-final morphemes (다/요/음/함/죠/까/네/오) and pauses ≥0.45s, capped at 8 words/group.
 - Brand-name corrections: `build-captions.py` has a `CORRECTIONS_WORD` and `CORRECTIONS_PHRASE` dict for Whisper mishears (쇠막/셀막/셰막 → 쉐막). Add new ones there if surfaced during review.
-- Editing: 효단님 edits `captions.json` (work) or `caption-groups.json` (final) directly. After edit, run [scripts/inline-captions.sh](scripts/inline-captions.sh) to re-embed the JSON inline into `index.html`, then re-render or hot-reload preview.
+- Editing: **`captions.srt` is the human edit surface**, `captions.json` is derived. [scripts/srt-utils.py](scripts/srt-utils.py) converts both directions; [scripts/inline-captions.sh](scripts/inline-captions.sh) auto-syncs SRT↔JSON (newer mtime wins) before embedding into `index.html`. So 효단님 edits `.srt`, runs `inline-captions.sh`, and renders.
 
 ## Sync (clap alignment)
 

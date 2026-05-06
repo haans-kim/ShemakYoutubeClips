@@ -91,20 +91,30 @@ ShemakYoutubeClips/
 
 ## 자막 파일 위치 (편집용)
 
-| 용도 | 위치 | 편집 후 갱신 명령 |
-|---|---|---|
-| 작업용(work) 영상 자막 | `chapters/<NN>-*/work/captions.json` | `scripts/inline-captions.sh chapters/<NN>-*/work` |
-| 최종(final) 영상 자막 | `chapters/<NN>-*/final/caption-groups.json` | `scripts/inline-captions.sh chapters/<NN>-*/final` |
+**SRT 파일이 편집 대상**입니다. JSON은 자동으로 derived됩니다.
 
-자막 스키마 (JSON 배열):
-```json
-[
-  { "text": "표시할 자막 텍스트", "start": 0.0, "end": 4.52 },
-  ...
-]
+| 용도 | 편집 파일 | derived JSON |
+|---|---|---|
+| 작업용(work) 영상 자막 | `chapters/<NN>-*/work/captions.srt` | `captions.json` |
+| 최종(final) 영상 자막 | `chapters/<NN>-*/final/caption-groups.srt` | `caption-groups.json` |
+
+SRT 형식 (텍스트 에디터에서 깔끔):
+```
+1
+00:00:00,000 --> 00:00:03,420
+좋은 하루 되시길 빕니다
+
+2
+00:00:04,200 --> 00:00:07,480
+오늘 시간에는 정원 산정 흔히 적정 인력 관련된
 ```
 
-`text` 텍스트만 수정하시면 OK. 시간(`start`/`end`)은 보통 그대로 두세요. 편집 후 위 inline 명령을 한 번 실행하면 HTML에 다시 박힙니다.
+**편집 워크플로**:
+1. `.srt`에서 텍스트 수정 (시간/번호 안 건드림)
+2. `scripts/inline-captions.sh chapters/<NN>-*/work` 한 번 실행 → 자동으로 `.srt → .json → index.html` 갱신
+3. 재렌더 또는 preview hot-reload
+
+`inline-captions.sh`는 SRT/JSON 중 mtime이 최신인 쪽을 source of truth로 보고 다른 쪽을 동기화합니다 — `.srt` 수정만 하시면 됩니다.
 
 ---
 
@@ -167,10 +177,10 @@ scripts/inline-captions.sh chapters/02-attendance-monitoring/work
 ### 자막 편집 → 영상 반영
 
 ```bash
-# 1. captions.json (또는 caption-groups.json) 편집
-# 2. HTML에 다시 inline embed
+# 1. chapters/<NN>-*/work/captions.srt 편집 (텍스트만)
+# 2. SRT → JSON 자동 변환 + HTML inline
 scripts/inline-captions.sh chapters/02-attendance-monitoring/work
-# 3. 재렌더 (또는 preview)
+# 3. 재렌더 (또는 preview hot-reload)
 ( cd chapters/02-attendance-monitoring/work && \
   npx hyperframes render --quality high --fps 30 --output ../renders/work.mp4 )
 ```
